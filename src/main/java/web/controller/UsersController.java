@@ -8,6 +8,7 @@ import web.model.User;
 import web.service.UserService;
 
 @Controller
+@RequestMapping("/users")
 public class UsersController {
     @Autowired
     private UserService userServiceImpl;
@@ -31,7 +32,7 @@ public class UsersController {
     @PostMapping
     public String create(@ModelAttribute("user") User user) {
         userServiceImpl.save(user);
-        return "redirect:/";
+        return "redirect:/users";
     }
 
     @GetMapping("/{id}/edit")
@@ -43,12 +44,12 @@ public class UsersController {
     @PatchMapping("/{id}")
     public String update(@ModelAttribute("user") User user, @PathVariable("id") int id) {
         userServiceImpl.update(user);
-        return "redirect:/";
+        return "redirect:/users";
     }
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") int id) {
         userServiceImpl.delete(id);
-        return "redirect:/";
+        return "redirect:/users";
     }
 }
