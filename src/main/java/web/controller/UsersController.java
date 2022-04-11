@@ -8,19 +8,18 @@ import web.model.User;
 import web.service.UserService;
 
 @Controller
-@RequestMapping("/users")
 public class UsersController {
     @Autowired
-    private UserService userService;
+    private UserService userServiceImpl;
 
     @GetMapping()
     public String index(Model model){
-        model.addAttribute("users", userService.index());
+        model.addAttribute("users", userServiceImpl.index());
         return "users/index";
     }
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id,Model model){
-        model.addAttribute("user", userService.show(id));
+        model.addAttribute("user", userServiceImpl.show(id));
         return "users/show";
     }
 
@@ -31,25 +30,25 @@ public class UsersController {
 
     @PostMapping
     public String create(@ModelAttribute("user") User user) {
-        userService.save(user);
-        return "redirect:/users";
+        userServiceImpl.save(user);
+        return "redirect:/";
     }
 
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") int id) {
-    model.addAttribute("user", userService.show(id));
+    model.addAttribute("user", userServiceImpl.show(id));
     return "users/edit";
     }
 
     @PatchMapping("/{id}")
     public String update(@ModelAttribute("user") User user, @PathVariable("id") int id) {
-        userService.update(user);
-        return "redirect:/users";
+        userServiceImpl.update(user);
+        return "redirect:/";
     }
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") int id) {
-        userService.delete(id);
-        return "redirect:/users";
+        userServiceImpl.delete(id);
+        return "redirect:/";
     }
 }
